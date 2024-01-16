@@ -12,4 +12,4 @@ This software uses [SemVer](http://semver.org/) for versioning.
 
 This software is licensed under the [MIT](LICENSE) license.
 
-Copyright © 2021 GSD Logic. All Rights Reserved.
+Copyright © 2024 GSD Logic. All rights reserved.

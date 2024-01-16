@@ -1,0 +1,189 @@
+{
+  "Version": "1.0",
+  "Variables": {
+    "Company": "GSD Logic",
+    "Copyright": "Copyright © {Date:yyyy} {Company}. All rights reserved.",
+    "AssemblyVersion": "{Major}.{Minor}.0.0",
+    "CppFileVersion": "{Major},{Minor},{Patch},{CommitCount}",
+    "FileVersion": "{Major}.{Minor}.{Patch}.{CommitCount}",
+    "InformationalVersion": "{Major}.{Minor}.{Patch}.{CommitCount}-{CommitHash}{ReleaseType:_x)}",
+    "SemanticVersion": "{Major}.{Minor}.{Patch}{ReleaseType:-xl}.{CommitCount}"
+  },
+  "Files": [
+    {
+      "FileSpecs": [
+        "AssemblyInfo.cs",
+        "AssemblyInfo.cpp",
+        "AssemblyInfo.vb"
+      ],
+      "Patterns": [
+        {
+          "Search": "AssemblyCompany(Attribute){0,1}\\(\"(.*)\"\\)",
+          "Replace": "AssemblyCompany$1(\"{Company}\")"
+        },
+        {
+          "Search": "AssemblyProduct(Attribute){0,1}\\(\"(.*)\"\\)",
+          "Replace": "AssemblyProduct$1(\"{Product}\")"
+        },
+        {
+          "Search": "AssemblyCopyright(Attribute){0,1}\\(\"(.*)\"\\)",
+          "Replace": "AssemblyCopyright$1(\"{Copyright}\")"
+        },
+        {
+          "Search": "AssemblyVersion(Attribute){0,1}\\(\"(.*)\"\\)",
+          "Replace": "AssemblyVersion$1(\"{AssemblyVersion}\")"
+        },
+        {
+          "Search": "AssemblyFileVersion(Attribute){0,1}\\(\"(.*)\"\\)",
+          "Replace": "AssemblyFileVersion$1(\"{FileVersion}\")"
+        },
+        {
+          "Search": "AssemblyInformationalVersion(Attribute){0,1}\\(\"(.*)\"\\)",
+          "Replace": "AssemblyInformationalVersion$1(\"{InformationalVersion}\")"
+        }
+      ]
+    },
+    {
+      "FileSpecs": [
+        "*.csproj"
+      ],
+      "Patterns": [
+        {
+          "Search": "<Product>(.*)</Product>",
+          "Replace": "<Product>{Product}</Product>"
+        },
+        {
+          "Search": "<Authors>(.*)</Authors>",
+          "Replace": "<Authors>{Company}</Authors>"
+        },
+        {
+          "Search": "<Company>(.*)</Company>",
+          "Replace": "<Company>{Company}</Company>"
+        },
+        {
+          "Search": "<Copyright>(.*)</Copyright>",
+          "Replace": "<Copyright>{Copyright}</Copyright>"
+        },
+        {
+          "Search": "<Version>(.*)</Version>",
+          "Replace": "<Version>{SemanticVersion}</Version>"
+        },
+        {
+          "Search": "<FileVersion>(.*)</FileVersion>",
+          "Replace": "<FileVersion>{FileVersion}</FileVersion>"
+        },
+        {
+          "Search": "<InformationalVersion>(.*)</InformationalVersion>",
+          "Replace": "<InformationalVersion>{InformationalVersion}</InformationalVersion>"
+        },
+        {
+          "Search": "<AssemblyVersion>(.*)</AssemblyVersion>",
+          "Replace": "<AssemblyVersion>{AssemblyVersion}</AssemblyVersion>"
+        },
+        {
+          "Search": "<AssemblyFileVersion>(.*)</AssemblyFileVersion>",
+          "Replace": "<AssemblyFileVersion>{FileVersion}</AssemblyFileVersion>"
+        }
+      ]
+    },
+    {
+      "FileSpecs": [
+        "*.rc"
+      ],
+      "Patterns": [
+        {
+          "Search": "FILEVERSION (.*)",
+          "Replace": "FILEVERSION {CppFileVersion}"
+        },
+        {
+          "Search": "PRODUCTVERSION (.*)",
+          "Replace": "PRODUCTVERSION {CppFileVersion}"
+        },
+        {
+          "Search": "VALUE \\\"CompanyName\\\", \\\"(.*)\\\"",
+          "Replace": "VALUE \"CompanyName\", \"{Company}\""
+        },
+        {
+          "Search": "VALUE \\\"FileDescription\\\", \\\"TODO: <File description>\\\"",
+          "Replace": "VALUE \"FileDescription\", \"\""
+        },
+        {
+          "Search": "VALUE \\\"FileVersion\\\", \\\"(.*)\\\"",
+          "Replace": "VALUE \"FileVersion\", \"{AssemblyVersion}\""
+        },
+        {
+          "Search": "VALUE \\\"LegalCopyright\\\", \\\"(.*)\\\"",
+          "Replace": "VALUE \"LegalCopyright\", \"{Copyright}\""
+        },
+        {
+          "Search": "VALUE \\\"ProductName\\\", \\\"(.*)\\\"",
+          "Replace": "VALUE \"ProductName\", \"{Product}\""
+        },
+        {
+          "Search": "VALUE \\\"ProductVersion\\\", \\\"(.*)\\\"",
+          "Replace": "VALUE \"ProductVersion\", \"{AssemblyVersion}\""
+        }
+      ]
+    },
+    {
+      "FileSpecs": [
+        "Product.wxs",
+        "Bundle.wxs",
+        "MergeModule.wxs"
+      ],
+      "Patterns": [
+        {
+          "Search": "(\\s)Version=\"([^\\\"]*)\"",
+          "Replace": "$1Version=\"{FileVersion}\""
+        },
+        {
+          "Search": "Manufacturer=\"[^\"]*\"",
+          "Replace": "Manufacturer=\"{Company}\""
+        }
+      ]
+    },
+    {
+      "FileSpecs": [ "*.ism" ],
+      "Patterns": [
+        {
+          "Search": "<td>ProductVersion</td><td>(.*)</td>",
+          "Replace": "<td>ProductVersion</td><td>{AssemblyVersion}</td>"
+        }
+      ]
+    },
+    {
+      "FileSpecs": [ "*.nuspec" ],
+      "Patterns": [
+        {
+          "Search": "<version>.*</version>",
+          "Replace": "<version>{SemanticVersion}</version>"
+        },
+        {
+          "Search": "<authors>.*</authors>",
+          "Replace": "<authors>{Company}</authors>"
+        },
+        {
+          "Search": "<owners>.*</owners>",
+          "Replace": "<owners>{Company}</owners>"
+        },
+        {
+          "Search": "<copyright>.*</copyright>",
+          "Replace": "<copyright>{Copyright}</copyright>"
+        },
+        {
+          "Search": "\\$NuGetVersion\\$",
+          "Replace": "{SemanticVersion}"
+        }
+      ]
+    },
+    {
+      "FileSpecs": [ "*.md" ],
+      "Patterns": [
+        {
+          "Search": "\\{\\{\\[VERSION\\]\\}\\}",
+          "Replace": "{DocumentationVersion}"
+        }
+      ]
+    }
+  ]
+}

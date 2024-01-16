@@ -1,0 +1,74 @@
+trigger:
+  batch: true
+  branches:
+    include:
+    - master
+    - develop
+
+variables:
+  
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+
+  ${{ if notIn(variables['Build.SourceBranchName'], 'master', 'develop') }}:
+    ReleaseType: Alpha
+  ${{ if eq(variables['Build.SourceBranchName'], 'develop') }}:
+    ReleaseType: Beta
+  ${{ if eq(variables['Build.SourceBranchName'], 'master') }}:
+    ReleaseType: Release
+
+steps:
+
+- task: PowerShell@2
+  displayName: 'Update version'
+  inputs:
+    filePath: 'Resources/Scripts/Build/SetVersion.ps1'
+    arguments: -Variables @{ "ReleaseType" = "$(ReleaseType)" }
+
+- task: CopyFiles@2
+  displayName: 'Copy source'
+  inputs:
+    Contents: |
+      **
+      !**\.git\**
+    TargetFolder: '$(Build.ArtifactStagingDirectory)/source'
+    CleanTargetFolder: true
+
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet build'
+  inputs:
+    command: 'build'
+    projects: 'GSDExtensions/GSDExtensions.sln'
+    arguments: '-c $(BuildConfiguration)'
+    vstsFeed: '$(Feed)'
+
+- task: CopyFiles@2
+  displayName: 'Copy packages'
+  inputs:
+    SourceFolder: '$(Build.SourcesDirectory)'
+    Contents: |
+     **/bin/$(BuildConfiguration)/*.nupkg
+    TargetFolder: '$(Build.ArtifactStagingDirectory)/packages'
+    CleanTargetFolder: true
+    flattenFolders: true
+    
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish artifact: source'
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)/source'
+    ArtifactName: 'GSD.Extensions-$(VER_SemanticVersion)-source'
+    
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: packages'
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)/packages'
+    ArtifactName: 'GSD.Extensions-$(VER_SemanticVersion)-packages'
+
+- task: NuGetCommand@2
+  displayName: 'NuGet push'
+  inputs:
+    command: push
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/packages/*.nupkg'
+    publishVstsFeed: '$(Feed)'
+  continueOnError: true
+  condition: and(succeeded(), in(variables['Build.Reason'], 'IndividualCI', 'BatchedCI'))
