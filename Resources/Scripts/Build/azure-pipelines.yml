@@ -40,7 +40,6 @@ steps:
     command: 'build'
     projects: 'GSDExtensions/GSDExtensions.sln'
     arguments: '-c $(BuildConfiguration)'
-    vstsFeed: '$(Feed)'
 
 - task: CopyFiles@2
   displayName: 'Copy packages'
@@ -67,8 +66,8 @@ steps:
 - task: NuGetCommand@2
   displayName: 'NuGet push'
   inputs:
-    command: push
+    command: 'push'
     packagesToPush: '$(Build.ArtifactStagingDirectory)/packages/*.nupkg'
-    publishVstsFeed: '$(Feed)'
-  continueOnError: true
-  condition: and(succeeded(), in(variables['Build.Reason'], 'IndividualCI', 'BatchedCI'))
+    nuGetFeedType: 'external'
+    publishFeedCredentials: 'nuget.org'
+  condition: and(succeeded(), or(in(variables['Build.Reason'], 'IndividualCI', 'BatchedCI'), in(variables['NuGetPush'], 'All', 'Public')))
