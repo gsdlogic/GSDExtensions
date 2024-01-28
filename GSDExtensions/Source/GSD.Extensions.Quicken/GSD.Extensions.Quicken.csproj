@@ -1,0 +1,50 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <!-- Framework -->
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>disable</Nullable>
+    <!-- Package -->
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Title>GSD Extensions Quicken Class Library</Title>
+    <Description>A set of classes designed to assist in consumption of Quicken resources.</Description>
+    <Copyright>Copyright © 2024 GSD Logic. All Rights Reserved.</Copyright>
+    <Authors>GSD Logic</Authors>
+    <Version>0.0.0-develop.0</Version>
+    <FileVersion>0.0.0.0</FileVersion>
+    <AssemblyVersion>0.0.0.0</AssemblyVersion>
+    <InformationalVersion>0.0.0.0 (development)</InformationalVersion>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <!-- Analysis -->
+    <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
+    <EnableNETAnalyzers>True</EnableNETAnalyzers>
+    <AnalysisLevel>latest-all</AnalysisLevel>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <!-- Signature -->
+    <SignAssembly>True</SignAssembly>
+    <AssemblyOriginatorKeyFile>GSD.Extensions.Quicken.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="True" PackagePath="\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="stylecop.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Include="stylecop.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118" PrivateAssets="all" />
+  </ItemGroup>
+
+</Project>

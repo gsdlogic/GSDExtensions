@@ -41,6 +41,12 @@ steps:
     projects: 'GSDExtensions/GSDExtensions.sln'
     arguments: '-c $(BuildConfiguration)'
 
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet test'
+  inputs:
+    command: 'test'
+    projects: 'GSDExtensions/GSDExtensions.sln'
+
 - task: CopyFiles@2
   displayName: 'Copy packages'
   inputs:
