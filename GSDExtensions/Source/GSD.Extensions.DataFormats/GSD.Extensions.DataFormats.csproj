@@ -5,10 +5,11 @@
     <TargetFramework>netstandard2.1</TargetFramework>
     <LangVersion>latest</LangVersion>
     <Nullable>disable</Nullable>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
     <!-- Package -->
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Title>GSD Extensions Quicken Class Library</Title>
-    <Description>A set of classes designed to assist in consumption of Quicken resources.</Description>
+    <Title>GSD Extensions Data Formats Class Library</Title>
+    <Description>A set of classes providing techniques and algorithms used to represent data in various formats.</Description>
     <Copyright>Copyright © 2024 GSD Logic. All Rights Reserved.</Copyright>
     <Authors>GSD Logic</Authors>
     <Version>0.0.0-develop.0</Version>
@@ -26,7 +27,7 @@
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <!-- Signature -->
     <SignAssembly>True</SignAssembly>
-    <AssemblyOriginatorKeyFile>GSD.Extensions.Quicken.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>GSD.Extensions.DataFormats.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

@@ -16,6 +16,8 @@
     <AssemblyVersion>0.0.0.0</AssemblyVersion>
     <InformationalVersion>0.0.0.0 (development)</InformationalVersion>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageProjectUrl>https://github.com/gsdlogic/GSDExtensions</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <!-- Analysis -->
     <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
     <EnableNETAnalyzers>True</EnableNETAnalyzers>
