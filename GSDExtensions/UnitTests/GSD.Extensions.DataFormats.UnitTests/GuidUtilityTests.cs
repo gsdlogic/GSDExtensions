@@ -32,7 +32,7 @@ public static class GuidUtilityTests
     {
         Assert.Equal(
             new Guid("21f7f8de-8051-5b89-8680-0195ef798b6a"),
-            GuidUtility.CreateNamespaceGuid(GuidUtility.DnsNamespace, "www.widgets.com"));
+            GuidUtility.NamespaceGuid(GuidUtility.DnsNamespace, "www.widgets.com"));
     }
 
     /// <summary>

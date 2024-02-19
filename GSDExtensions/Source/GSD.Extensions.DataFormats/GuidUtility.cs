@@ -40,15 +40,38 @@ public static class GuidUtility
     public static readonly Guid X500Namespace = new ("6ba7b814-9dad-11d1-80b4-00c04fd430c8");
 
     /// <summary>
+    /// Returns a <see cref="Guid" /> from a 16-byte byte array in network byte order (big-endian).
+    /// </summary>
+    /// <param name="value">The 16-byte byte array in network byte order (big-endian).</param>
+    /// <returns>The <see cref="Guid" /> that was converted.</returns>
+    public static Guid FromNetworkByteArray(byte[] value)
+    {
+        if (value == null)
+        {
+            throw new ArgumentNullException(nameof(value));
+        }
+
+        if (value.Length != 16)
+        {
+            throw new ArgumentException(Resources.ArgumentException_ArrayMustHaveLengthOf16, nameof(value));
+        }
+
+        var bytes = new byte[16];
+        Buffer.BlockCopy(value, 0, bytes, 0, 16);
+        SwapByteOrder(bytes);
+        return new Guid(bytes);
+    }
+
+    /// <summary>
     /// Creates a name-based UUID using the algorithm from RFC 4122 §4.3.
     /// </summary>
     /// <param name="namespaceId">The ID of the namespace.</param>
     /// <param name="name">The name (within that namespace).</param>
     /// <returns>A UUID derived from the namespace and name.</returns>
     /// <remarks>See <a href="http://code.logos.com/blog/2011/04/generating_a_deterministic_guid.html">Generating a deterministic GUID</a>.</remarks>
-    public static Guid CreateNamespaceGuid(Guid namespaceId, string name)
+    public static Guid NamespaceGuid(Guid namespaceId, string name)
     {
-        return CreateNamespaceGuid(namespaceId, name, 5);
+        return NamespaceGuid(namespaceId, name, 5);
     }
 
     /// <summary>
@@ -61,7 +84,7 @@ public static class GuidUtility
     /// <remarks>See <a href="http://code.logos.com/blog/2011/04/generating_a_deterministic_guid.html">Generating a deterministic GUID</a>.</remarks>
     [SuppressMessage("Security", "CA5350:Do Not Use Weak Cryptographic Algorithms", Justification = "Algorithm is not used for security.")]
     [SuppressMessage("Security", "CA5351:Do Not Use Broken Cryptographic Algorithms", Justification = "Algorithm is not used for security.")]
-    public static Guid CreateNamespaceGuid(Guid namespaceId, string name, int version)
+    public static Guid NamespaceGuid(Guid namespaceId, string name, int version)
     {
         if (name == null)
         {
@@ -91,29 +114,6 @@ public static class GuidUtility
 
         SwapByteOrder(bytes);
 
-        return new Guid(bytes);
-    }
-
-    /// <summary>
-    /// Returns a <see cref="Guid" /> from a 16-byte byte array in network byte order (big-endian).
-    /// </summary>
-    /// <param name="value">The 16-byte byte array in network byte order (big-endian).</param>
-    /// <returns>The <see cref="Guid" /> that was converted.</returns>
-    public static Guid FromNetworkByteArray(byte[] value)
-    {
-        if (value == null)
-        {
-            throw new ArgumentNullException(nameof(value));
-        }
-
-        if (value.Length != 16)
-        {
-            throw new ArgumentException(Resources.ArgumentException_ArrayMustHaveLengthOf16, nameof(value));
-        }
-
-        var bytes = new byte[16];
-        Buffer.BlockCopy(value, 0, bytes, 0, 16);
-        SwapByteOrder(bytes);
         return new Guid(bytes);
     }
 
