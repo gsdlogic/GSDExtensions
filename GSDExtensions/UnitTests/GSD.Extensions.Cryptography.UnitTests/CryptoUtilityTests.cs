@@ -16,6 +16,19 @@ using Xunit;
 public class CryptoUtilityTests
 {
     /// <summary>
+    /// Provides a test for the <see cref="CryptoUtility.AES256Encrypt(string, byte[])" /> and <see cref="CryptoUtility.AES256Decrypt(string, string)" /> methods.
+    /// </summary>
+    [Fact]
+    public void AES256EncryptionTest()
+    {
+        var key = CryptoUtility.GetBase64AES256Key();
+        var data = new byte[] { 0x2A, 0x65, 0x6D, 0x9D, 0x36, 0x06, 0xC1, 0xE1, 0xE9, 0x47, 0x47, 0x7B, 0x7F, 0x11, 0x0D, 0x1A };
+        var encrypted = CryptoUtility.AES256Encrypt(key, data);
+        var decrypted = CryptoUtility.AES256Decrypt(key, encrypted);
+        Assert.True(decrypted.SequenceEqual(data));
+    }
+
+    /// <summary>
     /// Provides a test for the <see cref="CryptoUtility.RSAEncrypt(string, byte[])" /> and <see cref="CryptoUtility.RSAEncrypt(string, byte[])" /> methods.
     /// </summary>
     [Fact]

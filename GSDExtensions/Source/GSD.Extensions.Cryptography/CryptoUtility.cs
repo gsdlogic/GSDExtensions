@@ -17,6 +17,89 @@ using System.Text;
 public static class CryptoUtility
 {
     /// <summary>
+    /// Decrypts data using the AES-256 algorithm.
+    /// </summary>
+    /// <param name="key">The key for the AES-256 algorithm.</param>
+    /// <param name="value">The data to be decrypted prefixed with the initialization vector for the AES-256 algorithm.</param>
+    /// <returns>The decrypted data.</returns>
+    public static byte[] AES256Decrypt(byte[] key, byte[] value)
+    {
+        if (value == null)
+        {
+            throw new ArgumentNullException(nameof(value));
+        }
+
+        var iv = new byte[16];
+        var encryptedLength = value.Length - 16;
+        var encrypted = new byte[encryptedLength];
+
+        Buffer.BlockCopy(value, 0, iv, 0, 16);
+        Buffer.BlockCopy(value, 16, encrypted, 0, encryptedLength);
+
+        using var aes = new AesCryptoServiceProvider
+        {
+            Key = key,
+            IV = iv,
+        };
+
+        using var decryptor = aes.CreateDecryptor();
+        var decrypted = decryptor.TransformFinalBlock(encrypted, 0, encrypted.Length);
+
+        return decrypted;
+    }
+
+    /// <summary>
+    /// Decrypts data using the AES-256 algorithm.
+    /// </summary>
+    /// <param name="key">The key for the AES-256 algorithm encoded with base-64 digits.</param>
+    /// <param name="value">The data to be decrypted prefixed with the initialization vector for the AES-256 algorithm encoded with base-64 digits.</param>
+    /// <returns>The decrypted data.</returns>
+    public static byte[] AES256Decrypt(string key, string value)
+    {
+        return AES256Decrypt(Convert.FromBase64String(key), Convert.FromBase64String(value));
+    }
+
+    /// <summary>
+    /// Encrypts data using the AES-256 algorithm.
+    /// </summary>
+    /// <param name="key">The key for the AES-256 algorithm.</param>
+    /// <param name="value">The data to be encrypted.</param>
+    /// <returns>The encrypted data prefixed with the initialization vector for the AES-256 algorithm.</returns>
+    public static byte[] AES256Encrypt(byte[] key, byte[] value)
+    {
+        if (value == null)
+        {
+            throw new ArgumentNullException(nameof(value));
+        }
+
+        using var aes = new AesCryptoServiceProvider
+        {
+            Key = key,
+        };
+
+        using var encryptor = aes.CreateEncryptor();
+        var encrypted = encryptor.TransformFinalBlock(value, 0, value.Length);
+
+        var result = new byte[aes.IV.Length + encrypted.Length];
+        Buffer.BlockCopy(aes.IV, 0, result, 0, aes.IV.Length);
+        Buffer.BlockCopy(encrypted, 0, result, aes.IV.Length, encrypted.Length);
+
+        return result;
+    }
+
+    /// <summary>
+    /// Encrypts data using the AES-256 algorithm.
+    /// </summary>
+    /// <param name="key">The key for the AES-256 algorithm encoded with base-64 digits.</param>
+    /// <param name="value">The data to be encrypted.</param>
+    /// <returns>The encrypted data prefixed with the initialization vector for the AES-256 algorithm encoded with base-64 digits.</returns>
+    public static string AES256Encrypt(string key, byte[] value)
+    {
+        var bytes = AES256Encrypt(Convert.FromBase64String(key), value);
+        return Convert.ToBase64String(bytes);
+    }
+
+    /// <summary>
     /// Fills an array of bytes with a cryptographically strong random sequence of values for use as a symmetric key in AES-256 encryption.
     /// </summary>
     /// <returns>The array of bytes with a cryptographically strong random sequence of values.</returns>
