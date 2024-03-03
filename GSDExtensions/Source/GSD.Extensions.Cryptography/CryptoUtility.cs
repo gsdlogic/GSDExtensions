@@ -9,7 +9,6 @@ namespace GSD.Extensions.Cryptography;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Security.Cryptography;
-using System.Text;
 
 /// <summary>
 /// Provides methods for common cryptographic services.
@@ -49,17 +48,6 @@ public static class CryptoUtility
     }
 
     /// <summary>
-    /// Decrypts data using the AES-256 algorithm.
-    /// </summary>
-    /// <param name="key">The key for the AES-256 algorithm encoded with base-64 digits.</param>
-    /// <param name="value">The data to be decrypted prefixed with the initialization vector for the AES-256 algorithm encoded with base-64 digits.</param>
-    /// <returns>The decrypted data.</returns>
-    public static byte[] AES256Decrypt(string key, string value)
-    {
-        return AES256Decrypt(Convert.FromBase64String(key), Convert.FromBase64String(value));
-    }
-
-    /// <summary>
     /// Encrypts data using the AES-256 algorithm.
     /// </summary>
     /// <param name="key">The key for the AES-256 algorithm.</param>
@@ -88,18 +76,6 @@ public static class CryptoUtility
     }
 
     /// <summary>
-    /// Encrypts data using the AES-256 algorithm.
-    /// </summary>
-    /// <param name="key">The key for the AES-256 algorithm encoded with base-64 digits.</param>
-    /// <param name="value">The data to be encrypted.</param>
-    /// <returns>The encrypted data prefixed with the initialization vector for the AES-256 algorithm encoded with base-64 digits.</returns>
-    public static string AES256Encrypt(string key, byte[] value)
-    {
-        var bytes = AES256Encrypt(Convert.FromBase64String(key), value);
-        return Convert.ToBase64String(bytes);
-    }
-
-    /// <summary>
     /// Fills an array of bytes with a cryptographically strong random sequence of values for use as a symmetric key in AES-256 encryption.
     /// </summary>
     /// <returns>The array of bytes with a cryptographically strong random sequence of values.</returns>
@@ -117,89 +93,6 @@ public static class CryptoUtility
     public static byte[] GetAES256KeyFromPassword(byte[] password, byte[] salt)
     {
         return GetPasswordHash(password, salt);
-    }
-
-    /// <summary>
-    /// Creates a PBKDF2 derived key from password bytes for use as a symmetric key in AES-256 encryption.
-    /// </summary>
-    /// <param name="password">The password to use to derive the key.</param>
-    /// <param name="salt">The key salt to use to derive the key encoded with base-64 digits (recommend 16 bytes or greater).</param>
-    /// <returns>A byte array containing the created PBKDF2 derived key encoded with base-64 digits.</returns>
-    public static string GetBase64AES256FromPasswordKey(string password, string salt)
-    {
-        var passwordBytes = Encoding.UTF8.GetBytes(password);
-        var saltBytes = Convert.FromBase64String(salt);
-        var bytes = GetAES256KeyFromPassword(passwordBytes, saltBytes);
-        return Convert.ToBase64String(bytes);
-    }
-
-    /// <summary>
-    /// Fills an array of bytes with a cryptographically strong random sequence of values for use as a symmetric key in AES-256 encryption.
-    /// </summary>
-    /// <returns>The array of bytes with a cryptographically strong random sequence of values encoded with base-64 digits.</returns>
-    public static string GetBase64AES256Key()
-    {
-        var bytes = GetRandomBytes(32);
-        return Convert.ToBase64String(bytes);
-    }
-
-    /// <summary>
-    /// Creates a PBKDF2 derived key from password bytes.
-    /// </summary>
-    /// <param name="password">The password to use to derive the key.</param>
-    /// <param name="salt">The key salt to use to derive the key encoded with base-64 digits (recommend 16 bytes or greater).</param>
-    /// <param name="outputLength">The size of the key to derive (recommend 32 bytes for AES-256 encryption).</param>
-    /// <returns>A byte array containing the created PBKDF2 derived key encoded with base-64 digits.</returns>
-    public static string GetBase64PasswordHash(string password, string salt, int outputLength = 32)
-    {
-        var passwordBytes = Encoding.UTF8.GetBytes(password);
-        var saltBytes = Convert.FromBase64String(salt);
-        var bytes = GetPasswordHash(passwordBytes, saltBytes, outputLength);
-        return Convert.ToBase64String(bytes);
-    }
-
-    /// <summary>
-    /// Fills an array of bytes with a cryptographically strong random sequence of values for use as a password salt.
-    /// </summary>
-    /// <returns>The array of bytes with a cryptographically strong random sequence of values encoded with base-64 digits.</returns>
-    public static string GetBase64PasswordSalt()
-    {
-        var bytes = GetPasswordSalt();
-        return Convert.ToBase64String(bytes);
-    }
-
-    /// <summary>
-    /// Fills an array of bytes with a cryptographically strong random sequence of values.
-    /// </summary>
-    /// <param name="outputLength">The number of bytes to return (recommend 32 for AES-256 encryption and 16 for a password salt).</param>
-    /// <returns>The array of bytes with a cryptographically strong random sequence of values encoded with base-64 digits.</returns>
-    public static string GetBase64RandomBytes(int outputLength)
-    {
-        var bytes = GetRandomBytes(outputLength);
-        return Convert.ToBase64String(bytes);
-    }
-
-    /// <summary>
-    /// Creates an RSA private-key in the PKCS#1 format.
-    /// </summary>
-    /// <param name="keySize">The size of the key to use in bits.</param>
-    /// <returns>An RSA private-key in the PKCS#1 format encoded with base-64 digits.</returns>
-    public static string GetBase64RSAPrivateKey(int keySize = 2048)
-    {
-        var bytes = GetRSAPrivateKey(keySize);
-        return Convert.ToBase64String(bytes);
-    }
-
-    /// <summary>
-    /// Exports the public-key portion of the RSA private-key in the PKCS#1 format.
-    /// </summary>
-    /// <param name="privateKey">The bytes of a PKCS#1 structure encoded with base-64 digits.</param>
-    /// <returns>The public-key portion of the RSA private-key in the PKCS#1 format encoded with base-64 digits.</returns>
-    public static string GetBase64RSAPublicKey(string privateKey)
-    {
-        var privateKeyBytes = Convert.FromBase64String(privateKey);
-        var publicKeyBytes = GetRSAPublicKey(privateKeyBytes);
-        return Convert.ToBase64String(publicKeyBytes);
     }
 
     /// <summary>
@@ -285,18 +178,6 @@ public static class CryptoUtility
     }
 
     /// <summary>
-    /// Decrypts data with a RSA private-key.
-    /// </summary>
-    /// <param name="privateKey">The RSA private-key in the PKCS#1 format encoded with base-64 digits.</param>
-    /// <param name="value">The data to be decrypted.</param>
-    /// <returns>The decrypted data.</returns>
-    public static byte[] RSADecrypt(string privateKey, byte[] value)
-    {
-        var privateKeyBytes = Convert.FromBase64String(privateKey);
-        return RSADecrypt(privateKeyBytes, value);
-    }
-
-    /// <summary>
     /// Encrypts data with a RSA public-key.
     /// </summary>
     /// <param name="publicKey">The RSA public-key in the PKCS#1 format.</param>
@@ -307,18 +188,6 @@ public static class CryptoUtility
         using var rsa = new RSACryptoServiceProvider();
         rsa.ImportRSAPublicKey(publicKey, out _);
         return rsa.Encrypt(value, false);
-    }
-
-    /// <summary>
-    /// Encrypts data with a RSA public-key.
-    /// </summary>
-    /// <param name="publicKey">The RSA public-key in the PKCS#1 format encoded with base-64 digits.</param>
-    /// <param name="value">The data to be encrypted.</param>
-    /// <returns>The encrypted data.</returns>
-    public static byte[] RSAEncrypt(string publicKey, byte[] value)
-    {
-        var publicKeyBytes = Convert.FromBase64String(publicKey);
-        return RSAEncrypt(publicKeyBytes, value);
     }
 
     /// <summary>

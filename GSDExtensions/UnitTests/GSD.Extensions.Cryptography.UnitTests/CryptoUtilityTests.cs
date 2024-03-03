@@ -16,29 +16,15 @@ using Xunit;
 public class CryptoUtilityTests
 {
     /// <summary>
-    /// Provides a test for the <see cref="CryptoUtility.AES256Encrypt(string, byte[])" /> and <see cref="CryptoUtility.AES256Decrypt(string, string)" /> methods.
+    /// Provides a test for the <see cref="CryptoUtility.AES256Encrypt(byte[], byte[])" /> and <see cref="CryptoUtility.AES256Decrypt(byte[], byte[])" /> methods.
     /// </summary>
     [Fact]
     public void AES256EncryptionTest()
     {
-        var key = CryptoUtility.GetBase64AES256Key();
+        var key = CryptoUtility.GetAES256Key();
         var data = new byte[] { 0x2A, 0x65, 0x6D, 0x9D, 0x36, 0x06, 0xC1, 0xE1, 0xE9, 0x47, 0x47, 0x7B, 0x7F, 0x11, 0x0D, 0x1A };
         var encrypted = CryptoUtility.AES256Encrypt(key, data);
         var decrypted = CryptoUtility.AES256Decrypt(key, encrypted);
-        Assert.True(decrypted.SequenceEqual(data));
-    }
-
-    /// <summary>
-    /// Provides a test for the <see cref="CryptoUtility.RSAEncrypt(string, byte[])" /> and <see cref="CryptoUtility.RSAEncrypt(string, byte[])" /> methods.
-    /// </summary>
-    [Fact]
-    public void Base64RSAEncryptionTest()
-    {
-        var privateKey = CryptoUtility.GetBase64RSAPrivateKey();
-        var publicKey = CryptoUtility.GetBase64RSAPublicKey(privateKey);
-        var data = new byte[] { 0x2A, 0x65, 0x6D, 0x9D, 0x36, 0x06, 0xC1, 0xE1, 0xE9, 0x47, 0x47, 0x7B, 0x7F, 0x11, 0x0D, 0x1A };
-        var encrypted = CryptoUtility.RSAEncrypt(publicKey, data);
-        var decrypted = CryptoUtility.RSADecrypt(privateKey, encrypted);
         Assert.True(decrypted.SequenceEqual(data));
     }
 
@@ -64,94 +50,6 @@ public class CryptoUtilityTests
     {
         var bytes = CryptoUtility.GetAES256Key();
         Assert.Equal(32, bytes.Length);
-    }
-
-    /// <summary>
-    /// Provides a test for the <see cref="CryptoUtility.GetBase64AES256FromPasswordKey(string, string)" /> method.
-    /// </summary>
-    [Fact]
-    public void GetBase64AES256KeyFromPasswordTest()
-    {
-        const string Password = "password";
-        var salt = Convert.ToBase64String(new byte[] { 0x2A, 0x65, 0x6D, 0x9D, 0x36, 0x06, 0xC1, 0xE1, 0xE9, 0x47, 0x47, 0x7B, 0x7F, 0x11, 0x0D, 0x1A });
-        var value1 = CryptoUtility.GetBase64AES256FromPasswordKey(Password, salt);
-        var value2 = CryptoUtility.GetBase64AES256FromPasswordKey(Password, salt);
-        Assert.Equal(32, Convert.FromBase64String(value1).Length);
-        Assert.Equal(value1, value2);
-    }
-
-    /// <summary>
-    /// Provides a test for the <see cref="CryptoUtility.GetBase64AES256Key()" /> method.
-    /// </summary>
-    [Fact]
-    public void GetBase64AES256KeyTest()
-    {
-        var result = CryptoUtility.GetBase64AES256Key();
-        var bytes = Convert.FromBase64String(result);
-        Assert.Equal(32, bytes.Length);
-    }
-
-    /// <summary>
-    /// Provides a test for the <see cref="CryptoUtility.GetBase64PasswordHash(string, string, int)" /> method.
-    /// </summary>
-    [Fact]
-    public void GetBase64PasswordHash()
-    {
-        const string Password = "password";
-        var salt = Convert.ToBase64String(new byte[] { 0x2A, 0x65, 0x6D, 0x9D, 0x36, 0x06, 0xC1, 0xE1, 0xE9, 0x47, 0x47, 0x7B, 0x7F, 0x11, 0x0D, 0x1A });
-        var value1 = CryptoUtility.GetBase64PasswordHash(Password, salt);
-        var value2 = CryptoUtility.GetBase64PasswordHash(Password, salt);
-        Assert.Equal(32, Convert.FromBase64String(value1).Length);
-        Assert.Equal(value1, value2);
-    }
-
-    /// <summary>
-    /// Provides a test for the <see cref="CryptoUtility.GetBase64PasswordSalt()" /> method.
-    /// </summary>
-    [Fact]
-    public void GetBase64PasswordSaltTest()
-    {
-        var result = CryptoUtility.GetBase64PasswordSalt();
-        var bytes = Convert.FromBase64String(result);
-        Assert.Equal(16, bytes.Length);
-    }
-
-    /// <summary>
-    /// Provides a test for the <see cref="CryptoUtility.GetBase64RandomBytes(int)" /> method.
-    /// </summary>
-    [Fact]
-    public void GetBase64RandomBytesTest()
-    {
-        var result = CryptoUtility.GetBase64RandomBytes(32);
-        var bytes = Convert.FromBase64String(result);
-        Assert.Equal(32, bytes.Length);
-    }
-
-    /// <summary>
-    /// Provides a test for the <see cref="CryptoUtility.GetBase64RSAPrivateKey" /> method.
-    /// </summary>
-    [Fact]
-    public void GetBase64RSAPrivateKeyTest()
-    {
-        var key = CryptoUtility.GetBase64RSAPrivateKey();
-        using var rsa = new RSACryptoServiceProvider();
-        var keyBytes = Convert.FromBase64String(key);
-        rsa.ImportRSAPrivateKey(keyBytes, out var bytesRead);
-        Assert.Equal(keyBytes.Length, bytesRead);
-    }
-
-    /// <summary>
-    /// Provides a test for the <see cref="CryptoUtility.GetBase64RSAPublicKey(string)" /> method.
-    /// </summary>
-    [Fact]
-    public void GetBase64RSAPublicKeyTest()
-    {
-        var privateKey = CryptoUtility.GetBase64RSAPrivateKey();
-        var publicKey = CryptoUtility.GetBase64RSAPublicKey(privateKey);
-        var publicKeyBytes = Convert.FromBase64String(publicKey);
-        using var rsa = new RSACryptoServiceProvider();
-        rsa.ImportRSAPublicKey(publicKeyBytes, out var bytesRead);
-        Assert.Equal(publicKeyBytes.Length, bytesRead);
     }
 
     /// <summary>
@@ -201,7 +99,7 @@ public class CryptoUtilityTests
     }
 
     /// <summary>
-    /// Provides a test for the <see cref="CryptoUtility.GetBase64RSAPrivateKey(int)" /> method.
+    /// Provides a test for the <see cref="CryptoUtility.GetRSAPrivateKey(int)" /> method.
     /// </summary>
     [Fact]
     public void GetRSAPrivateKeyTest()
