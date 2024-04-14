@@ -117,7 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="WebApiClientException_DefaultMessage" xml:space="preserve">
-    <value>An error occurred during a Web API client request.</value>
+  <data name="ArgumentException_HttpClient_Timeout_Must_Be_Timeout_InfiniteTimeSpan" xml:space="preserve">
+    <value>HttpClient.Timeout must be Timeout.InfiniteTimeSpan.</value>
+  </data>
+  <data name="HttpClientException_DefaultMessage" xml:space="preserve">
+    <value>An error occurred during an HTTP client request.</value>
+  </data>
+  <data name="ArgumentException_Illegal_Base64Url_String" xml:space="preserve">
+	  <value>Illegal base64url string.</value>
   </data>
 </root>

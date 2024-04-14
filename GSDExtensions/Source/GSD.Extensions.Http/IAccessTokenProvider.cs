@@ -4,18 +4,18 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace GSD.Extensions.WebAPI;
+namespace GSD.Extensions.Http;
 
 using System.Threading;
 using System.Threading.Tasks;
 
 /// <summary>
-/// Provides methods for obtaining an access token to authorize Web API client requests.
+/// Provides methods for obtaining an access token to authorize HTTP client requests.
 /// </summary>
 public interface IAccessTokenProvider
 {
     /// <summary>
-    /// Gets an access token to authorize Web API client requests.
+    /// Gets an access token to authorize HTTP client requests.
     /// </summary>
     /// <param name="cancellationToken">The <see cref="CancellationToken" /> to monitor for cancellation requests.</param>
     /// <returns>A <see cref="Task" /> that represents any asynchronous operation whose result contains the access token, or <see langword="null" /> if the client is not authenticated.</returns>

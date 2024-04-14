@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace GSD.Extensions.WebAPI.Properties {
+namespace GSD.Extensions.Http.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace GSD.Extensions.WebAPI.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("GSD.Extensions.WebAPI.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("GSD.Extensions.Http.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,11 +61,29 @@ namespace GSD.Extensions.WebAPI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An error occurred during a Web API client request..
+        ///   Looks up a localized string similar to HttpClient.Timeout must be Timeout.InfiniteTimeSpan..
         /// </summary>
-        internal static string WebApiClientException_DefaultMessage {
+        internal static string ArgumentException_HttpClient_Timeout_Must_Be_Timeout_InfiniteTimeSpan {
             get {
-                return ResourceManager.GetString("WebApiClientException_DefaultMessage", resourceCulture);
+                return ResourceManager.GetString("ArgumentException_HttpClient_Timeout_Must_Be_Timeout_InfiniteTimeSpan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Illegal base64url string..
+        /// </summary>
+        internal static string ArgumentException_Illegal_Base64Url_String {
+            get {
+                return ResourceManager.GetString("ArgumentException_Illegal_Base64Url_String", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred during an HTTP client request..
+        /// </summary>
+        internal static string HttpClientException_DefaultMessage {
+            get {
+                return ResourceManager.GetString("HttpClientException_DefaultMessage", resourceCulture);
             }
         }
     }

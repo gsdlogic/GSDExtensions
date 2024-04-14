@@ -1,14 +1,15 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
     <!-- Framework -->
-    <TargetFramework>netstandard2.1</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <LangVersion>latest</LangVersion>
     <Nullable>disable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
     <!-- Package -->
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Title>GSD Extensions Web API Class Library</Title>
-    <Description>A set of classes designed to assist in consumption of Web API resources.</Description>
+    <Title>GSD Extensions Blazor Class Library</Title>
+    <Description>A set Blazor components and services.</Description>
     <Copyright>Copyright © 2024 GSD Logic. All Rights Reserved.</Copyright>
     <Authors>GSD Logic</Authors>
     <Version>0.0.0-develop.0</Version>
@@ -26,7 +27,9 @@
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <!-- Signature -->
     <SignAssembly>True</SignAssembly>
-    <AssemblyOriginatorKeyFile>GSD.Extensions.WebAPI.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>GSD.Extensions.Blazor.snk</AssemblyOriginatorKeyFile>
+    <!-- Web -->
+    <StaticWebAssetBasePath>/</StaticWebAssetBasePath>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -46,23 +49,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <SupportedPlatform Include="browser" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.3" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118" PrivateAssets="all" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="Properties\Resources.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Update="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
   </ItemGroup>
 
 </Project>
