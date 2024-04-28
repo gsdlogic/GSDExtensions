@@ -1,8 +1,6 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="CryptoUtility.cs" company="GSD Logic">
-//   Copyright © 2024 GSD Logic. All rights reserved.
+﻿// <copyright file="CryptoUtility.cs" company="GSD Logic">
+// Copyright © 2024 GSD Logic. All rights reserved.
 // </copyright>
-// --------------------------------------------------------------------------------------------------------------------
 
 namespace GSD.Extensions.Cryptography;
 
@@ -19,30 +17,22 @@ public static class CryptoUtility
     /// Decrypts data using the AES-256 algorithm.
     /// </summary>
     /// <param name="key">The key for the AES-256 algorithm.</param>
+    /// <param name="iv">The initialization vector for the AES-256 algorithm.</param>
     /// <param name="value">The data to be decrypted prefixed with the initialization vector for the AES-256 algorithm.</param>
     /// <returns>The decrypted data.</returns>
-    public static byte[] AES256Decrypt(byte[] key, byte[] value)
+    public static byte[] AES256Decrypt(byte[] key, byte[] iv, byte[] value)
     {
         if (value == null)
         {
             throw new ArgumentNullException(nameof(value));
         }
 
-        var iv = new byte[16];
-        var encryptedLength = value.Length - 16;
-        var encrypted = new byte[encryptedLength];
-
-        Buffer.BlockCopy(value, 0, iv, 0, 16);
-        Buffer.BlockCopy(value, 16, encrypted, 0, encryptedLength);
-
-        using var aes = new AesCryptoServiceProvider
-        {
-            Key = key,
-            IV = iv,
-        };
+        using var aes = Aes.Create();
+        aes.Key = key;
+        aes.IV = iv;
 
         using var decryptor = aes.CreateDecryptor();
-        var decrypted = decryptor.TransformFinalBlock(encrypted, 0, encrypted.Length);
+        var decrypted = decryptor.TransformFinalBlock(value, 0, value.Length);
 
         return decrypted;
     }
@@ -53,26 +43,20 @@ public static class CryptoUtility
     /// <param name="key">The key for the AES-256 algorithm.</param>
     /// <param name="value">The data to be encrypted.</param>
     /// <returns>The encrypted data prefixed with the initialization vector for the AES-256 algorithm.</returns>
-    public static byte[] AES256Encrypt(byte[] key, byte[] value)
+    public static (byte[] iv, byte[] result) AES256Encrypt(byte[] key, byte[] value)
     {
         if (value == null)
         {
             throw new ArgumentNullException(nameof(value));
         }
 
-        using var aes = new AesCryptoServiceProvider
-        {
-            Key = key,
-        };
+        using var aes = Aes.Create();
+        aes.Key = key;
 
         using var encryptor = aes.CreateEncryptor();
-        var encrypted = encryptor.TransformFinalBlock(value, 0, value.Length);
+        var result = encryptor.TransformFinalBlock(value, 0, value.Length);
 
-        var result = new byte[aes.IV.Length + encrypted.Length];
-        Buffer.BlockCopy(aes.IV, 0, result, 0, aes.IV.Length);
-        Buffer.BlockCopy(encrypted, 0, result, aes.IV.Length, encrypted.Length);
-
-        return result;
+        return (aes.IV, result);
     }
 
     /// <summary>
