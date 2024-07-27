@@ -1,0 +1,11 @@
+{
+  "$schema": "https://raw.githubusercontent.com/DotNetAnalyzers/StyleCopAnalyzers/master/StyleCop.Analyzers/StyleCop.Analyzers/Settings/stylecop.schema.json",
+  "settings": {
+    "documentationRules": {
+      "companyName": "GSD Logic",
+      "copyrightText": "Copyright © 2024 GSD Logic. All rights reserved.",
+      "documentPrivateElements": true,
+      "documentPrivateFields": true
+    }
+  }
+}

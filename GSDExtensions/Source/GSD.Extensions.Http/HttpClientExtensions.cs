@@ -1,8 +1,6 @@
-// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="HttpClientExtensions.cs" company="GSD Logic">
-//   Copyright © 2024 GSD Logic. All rights reserved.
+// Copyright © 2024 GSD Logic. All rights reserved.
 // </copyright>
-// --------------------------------------------------------------------------------------------------------------------
 
 namespace GSD.Extensions.Http;
 
@@ -31,7 +29,7 @@ public static class HttpClientExtensions
     /// Sends an HTTP DELETE request to the server as an asynchronous operation.
     /// </summary>
     /// <param name="client">The HTTP client.</param>
-    /// <param name="requestPath">A string tha represents the request path.</param>
+    /// <param name="requestPath">A string that represents the request path.</param>
     /// <param name="accessToken">The access token to authorize the request, or <see langword="null" /> if the request does not require authorization.</param>
     /// <param name="cancellationToken">The <see cref="CancellationToken" /> to monitor for cancellation requests.</param>
     /// <returns>A <see cref="Task" /> representing any asynchronous operation whose result contains the HTTP response message.</returns>
@@ -63,7 +61,7 @@ public static class HttpClientExtensions
     /// </summary>
     /// <typeparam name="TResponse">The type of object to deserialize the response content.</typeparam>
     /// <param name="client">The HTTP client.</param>
-    /// <param name="requestPath">A string tha represents the request path.</param>
+    /// <param name="requestPath">A string that represents the request path.</param>
     /// <param name="accessToken">The access token to authorize the request, or <see langword="null" /> if the request does not require authorization.</param>
     /// <param name="cancellationToken">The <see cref="CancellationToken" /> to monitor for cancellation requests.</param>
     /// <returns>A <see cref="Task" /> representing any asynchronous operation whose result contains the deserialized response.</returns>
@@ -95,7 +93,7 @@ public static class HttpClientExtensions
     /// </summary>
     /// <typeparam name="TResponse">The type of object to deserialize the response content.</typeparam>
     /// <param name="client">The HTTP client.</param>
-    /// <param name="requestPath">A string tha represents the request path.</param>
+    /// <param name="requestPath">A string that represents the request path.</param>
     /// <param name="accessToken">The access token to authorize the request, or <see langword="null" /> if the request does not require authorization.</param>
     /// <param name="cancellationToken">The <see cref="CancellationToken" /> to monitor for cancellation request.</param>
     /// <returns>A <see cref="Task" /> representing any asynchronous operation whose result contains the deserialized response.</returns>
@@ -127,13 +125,13 @@ public static class HttpClientExtensions
     /// </summary>
     /// <typeparam name="TResponse">The type of object to deserialize the response content.</typeparam>
     /// <param name="client">The HTTP client.</param>
-    /// <param name="requestPath">A string tha represents the request path.</param>
+    /// <param name="requestPath">A string that represents the request path.</param>
     /// <param name="content">The contents of the HTTP message.</param>
     /// <param name="accessToken">The access token to authorize the request, or <see langword="null" /> if the request does not require authorization.</param>
     /// <param name="cancellationToken">The <see cref="CancellationToken" /> to monitor for cancellation request.</param>
     /// <returns>A <see cref="Task" /> representing any asynchronous operation whose result contains the deserialized response.</returns>
     /// <exception cref="HttpClientException">An error occurred during the request.</exception>
-    public static async Task<TResponse> PostAsync<TResponse>(this HttpClient client, string requestPath, object content, string accessToken, CancellationToken cancellationToken = default)
+    public static async Task<TResponse> PostContentAsync<TResponse>(this HttpClient client, string requestPath, object content, string accessToken, CancellationToken cancellationToken = default)
     {
         if (client == null)
         {
@@ -160,7 +158,7 @@ public static class HttpClientExtensions
     /// </summary>
     /// <typeparam name="TResponse">The type of object to deserialize the response content.</typeparam>
     /// <param name="client">The HTTP client.</param>
-    /// <param name="requestPath">A string tha represents the request path.</param>
+    /// <param name="requestPath">A string that represents the request path.</param>
     /// <param name="accessToken">The access token to authorize the request, or <see langword="null" /> if the request does not require authorization.</param>
     /// <param name="cancellationToken">The <see cref="CancellationToken" /> to monitor for cancellation request.</param>
     /// <returns>A <see cref="Task" /> representing any asynchronous operation whose result contains the deserialized response.</returns>
@@ -192,13 +190,13 @@ public static class HttpClientExtensions
     /// </summary>
     /// <typeparam name="TResponse">The type of object to deserialize the response content.</typeparam>
     /// <param name="client">The HTTP client.</param>
-    /// <param name="requestPath">A string tha represents the request path.</param>
+    /// <param name="requestPath">A string that represents the request path.</param>
     /// <param name="content">The contents of the HTTP message.</param>
     /// <param name="accessToken">The access token to authorize the request, or <see langword="null" /> if the request does not require authorization.</param>
     /// <param name="cancellationToken">The <see cref="CancellationToken" /> to monitor for cancellation request.</param>
     /// <returns>A <see cref="Task" /> representing any asynchronous operation whose result contains the deserialized response.</returns>
     /// <exception cref="HttpClientException">An error occurred during the request.</exception>
-    public static async Task<TResponse> PutAsync<TResponse>(this HttpClient client, string requestPath, object content, string accessToken, CancellationToken cancellationToken = default)
+    public static async Task<TResponse> PutContentAsync<TResponse>(this HttpClient client, string requestPath, object content, string accessToken, CancellationToken cancellationToken = default)
     {
         if (client == null)
         {
@@ -320,9 +318,16 @@ public static class HttpClientExtensions
             throw new ArgumentNullException(nameof(request));
         }
 
-        if (client.Timeout != Timeout.InfiniteTimeSpan)
+        try
         {
-            throw new ArgumentException(Resources.ArgumentException_HttpClient_Timeout_Must_Be_Timeout_InfiniteTimeSpan, nameof(client));
+            if (client.Timeout != Timeout.InfiniteTimeSpan)
+            {
+                client.Timeout = Timeout.InfiniteTimeSpan;
+            }
+        }
+        catch (InvalidOperationException ex)
+        {
+            throw new HttpClientException(request.Method.Method, request.RequestUri, Resources.HttpClientException_NotFirstRequest, ex);
         }
 
         try
@@ -344,7 +349,7 @@ public static class HttpClientExtensions
                 }
                 catch (OperationCanceledException) when (cancellationTokenSource.IsCancellationRequested)
                 {
-                    throw new TimeoutException();
+                    throw new TimeoutException(Resources.TimeoutException_TheRequestTimedOut);
                 }
             }
 

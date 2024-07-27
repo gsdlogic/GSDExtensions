@@ -20,6 +20,7 @@ public static class CryptoUtility
     /// <param name="iv">The initialization vector for the AES-256 algorithm.</param>
     /// <param name="value">The data to be decrypted prefixed with the initialization vector for the AES-256 algorithm.</param>
     /// <returns>The decrypted data.</returns>
+    [Obsolete("Use AESHelper.Decrypt(byte[], byte[], byte[]) instead.")]
     public static byte[] AES256Decrypt(byte[] key, byte[] iv, byte[] value)
     {
         if (value == null)
@@ -43,6 +44,7 @@ public static class CryptoUtility
     /// <param name="key">The key for the AES-256 algorithm.</param>
     /// <param name="value">The data to be encrypted.</param>
     /// <returns>The encrypted data prefixed with the initialization vector for the AES-256 algorithm.</returns>
+    [Obsolete("Use AESHelper.Encrypt(byte[], byte[]) instead.")]
     public static (byte[] iv, byte[] result) AES256Encrypt(byte[] key, byte[] value)
     {
         if (value == null)
@@ -63,6 +65,7 @@ public static class CryptoUtility
     /// Fills an array of bytes with a cryptographically strong random sequence of values for use as a symmetric key in AES-256 encryption.
     /// </summary>
     /// <returns>The array of bytes with a cryptographically strong random sequence of values.</returns>
+    [Obsolete("Use AESHelper.GenerateKey() instead.")]
     public static byte[] GetAES256Key()
     {
         return GetRandomBytes(32);
@@ -74,6 +77,7 @@ public static class CryptoUtility
     /// <param name="password">The password to use to derive the key.</param>
     /// <param name="salt">The key salt to use to derive the key (recommend 16 bytes or greater).</param>
     /// <returns>A byte array containing the created PBKDF2 derived key.</returns>
+    [Obsolete("Use HashHelper.DeriveKeyFromPassword(byte[], byte[]) instead.")]
     public static byte[] GetAES256KeyFromPassword(byte[] password, byte[] salt)
     {
         return GetPasswordHash(password, salt);
@@ -86,6 +90,7 @@ public static class CryptoUtility
     /// <param name="salt">The key salt to use to derive the key (recommend 16 bytes or greater).</param>
     /// <param name="outputLength">The size of the key to derive (recommend 32 bytes for AES-256 encryption).</param>
     /// <returns>A byte array containing the created PBKDF2 derived key.</returns>
+    [Obsolete("Use HashHelper.DeriveKeyFromPassword(byte[], byte[]) instead.")]
     public static byte[] GetPasswordHash(byte[] password, byte[] salt, int outputLength = 32)
     {
         return GetRfc2898DeriveBytes(password, salt, 100000, HashAlgorithmName.SHA256, outputLength);
@@ -95,6 +100,7 @@ public static class CryptoUtility
     /// Fills an array of bytes with a cryptographically strong random sequence of values for use as a password salt.
     /// </summary>
     /// <returns>The array of bytes with a cryptographically strong random sequence of values.</returns>
+    [Obsolete("Use HashHelper.GenerateSalt(int) instead.")]
     public static byte[] GetPasswordSalt()
     {
         return GetRandomBytes(16);
@@ -105,6 +111,7 @@ public static class CryptoUtility
     /// </summary>
     /// <param name="outputLength">The number of bytes to return (recommend 32 for AES-256 encryption and 16 for a password salt).</param>
     /// <returns>The array of bytes with a cryptographically strong random sequence of values.</returns>
+    [Obsolete("Use CryptoHelper.GenerateRandomBytes(int) instead.")]
     public static byte[] GetRandomBytes(int outputLength)
     {
         using var rng = RandomNumberGenerator.Create();
@@ -117,6 +124,7 @@ public static class CryptoUtility
     /// Creates a <see cref="Guid" /> using a cryptographically strong random sequence of values.
     /// </summary>
     /// <returns>A <see cref="Guid" /> using a cryptographically strong random sequence of values.</returns>
+    [Obsolete("Use CryptoHelper.GenerateRandomGuid() instead.")]
     public static Guid GetRandomGuid()
     {
         var bytes = GetRandomBytes(16);
@@ -130,6 +138,7 @@ public static class CryptoUtility
     /// </summary>
     /// <param name="keySize">The size of the key to use in bits.</param>
     /// <returns>An RSA private-key in the PKCS#1 format.</returns>
+    [Obsolete("Use RsaHelper.GeneratePrivateKey() instead.")]
     public static byte[] GetRSAPrivateKey(int keySize = 2048)
     {
         using var rsa = new RSACryptoServiceProvider(keySize);
@@ -141,6 +150,7 @@ public static class CryptoUtility
     /// </summary>
     /// <param name="privateKey">The bytes of a PKCS#1 structure.</param>
     /// <returns>The public-key portion of the RSA private-key in the PKCS#1 format.</returns>
+    [Obsolete("Use RsaHelper.ExtractPublicKey() instead.")]
     public static byte[] GetRSAPublicKey(byte[] privateKey)
     {
         using var rsa = new RSACryptoServiceProvider();
@@ -154,6 +164,7 @@ public static class CryptoUtility
     /// <param name="privateKey">The RSA private-key in the PKCS#1 format.</param>
     /// <param name="value">The data to be decrypted.</param>
     /// <returns>The decrypted data.</returns>
+    [Obsolete("Use RsaHelper.Decrypt(byte[], byte[]) instead.")]
     public static byte[] RSADecrypt(byte[] privateKey, byte[] value)
     {
         using var rsa = new RSACryptoServiceProvider();
@@ -167,6 +178,7 @@ public static class CryptoUtility
     /// <param name="publicKey">The RSA public-key in the PKCS#1 format.</param>
     /// <param name="value">The data to be encrypted.</param>
     /// <returns>The encrypted data.</returns>
+    [Obsolete("Use RsaHelper.Encrypt(byte[], byte[]) instead.")]
     public static byte[] RSAEncrypt(byte[] publicKey, byte[] value)
     {
         using var rsa = new RSACryptoServiceProvider();
@@ -183,6 +195,7 @@ public static class CryptoUtility
     /// <remarks>
     /// This comparison method is used so that password hashes cannot be extracted from on-line systems using a timing attack and then attacked off-line.
     /// </remarks>
+    [Obsolete("Use CryptoHelper.SlowEquals(byte[], byte[]) instead.")]
     public static bool SlowEquals(byte[] a, byte[] b)
     {
         if (a == null)

@@ -59,5 +59,50 @@ namespace GSD.Extensions.Cryptography.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Iterations must be greater than zero..
+        /// </summary>
+        internal static string ArgumentException_IterationsMustBeGreaterThanZero {
+            get {
+                return ResourceManager.GetString("ArgumentException_IterationsMustBeGreaterThanZero", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Key size must be greater than zero..
+        /// </summary>
+        internal static string ArgumentException_KeySizeMustBeGreaterThanZero {
+            get {
+                return ResourceManager.GetString("ArgumentException_KeySizeMustBeGreaterThanZero", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Salt size must be at least 16 bytes..
+        /// </summary>
+        internal static string ArgumentException_SaltSizeMustBeAtLeast16Bytes {
+            get {
+                return ResourceManager.GetString("ArgumentException_SaltSizeMustBeAtLeast16Bytes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Salt size must be greater than zero..
+        /// </summary>
+        internal static string ArgumentException_SaltSizeMustBeGreaterThanZero {
+            get {
+                return ResourceManager.GetString("ArgumentException_SaltSizeMustBeGreaterThanZero", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Size must be greater than zero..
+        /// </summary>
+        internal static string ArgumentException_SizeMustBeGreaterThanZero {
+            get {
+                return ResourceManager.GetString("ArgumentException_SizeMustBeGreaterThanZero", resourceCulture);
+            }
+        }
     }
 }

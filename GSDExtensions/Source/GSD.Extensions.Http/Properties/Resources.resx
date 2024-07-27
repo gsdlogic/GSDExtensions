@@ -126,4 +126,10 @@
   <data name="ArgumentException_Illegal_Base64Url_String" xml:space="preserve">
 	  <value>Illegal base64url string.</value>
   </data>
+  <data name="HttpClientException_NotFirstRequest" xml:space="preserve">
+	  <value>Timeout property can only be modified before sending the first request.</value>
+  </data>
+  <data name="TimeoutException_TheRequestTimedOut" xml:space="preserve">
+	  <value>The request timed out.</value>
+  </data>
 </root>

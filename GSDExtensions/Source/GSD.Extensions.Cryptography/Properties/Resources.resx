@@ -117,4 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ArgumentException_IterationsMustBeGreaterThanZero" xml:space="preserve">
+	  <value>Iterations must be greater than zero.</value>
+  </data>
+  <data name="ArgumentException_KeySizeMustBeGreaterThanZero" xml:space="preserve">
+	  <value>Key size must be greater than zero.</value>
+  </data>
+  <data name="ArgumentException_SizeMustBeGreaterThanZero" xml:space="preserve">
+	  <value>Size must be greater than zero.</value>
+  </data>
+  <data name="ArgumentException_SaltSizeMustBeGreaterThanZero" xml:space="preserve">
+	  <value>Salt size must be greater than zero.</value>
+  </data>
+  <data name="ArgumentException_SaltSizeMustBeAtLeast16Bytes" xml:space="preserve">
+	  <value>Salt size must be at least 16 bytes.</value>
+  </data>
 </root>

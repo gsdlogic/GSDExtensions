@@ -17,6 +17,7 @@ public class CryptoUtilityTests
     /// Provides a test for the <see cref="CryptoUtility.AES256Encrypt(byte[], byte[])" /> and <see cref="CryptoUtility.AES256Decrypt(byte[], byte[], byte[])" /> methods.
     /// </summary>
     [Fact]
+    [Obsolete("Testing an obsolete method.")]
     public void AES256EncryptionTest()
     {
         var key = CryptoUtility.GetAES256Key();
@@ -30,6 +31,7 @@ public class CryptoUtilityTests
     /// Provides a test for the <see cref="CryptoUtility.GetAES256KeyFromPassword(byte[], byte[])" /> method.
     /// </summary>
     [Fact]
+    [Obsolete("Testing an obsolete method.")]
     public void GetAES256KeyFromPasswordTest()
     {
         var password = Encoding.UTF8.GetBytes("password");
@@ -44,6 +46,7 @@ public class CryptoUtilityTests
     /// Provides a test for the <see cref="CryptoUtility.GetAES256Key()" /> method.
     /// </summary>
     [Fact]
+    [Obsolete("Testing an obsolete method.")]
     public void GetAES256KeyTests()
     {
         var bytes = CryptoUtility.GetAES256Key();
@@ -54,6 +57,7 @@ public class CryptoUtilityTests
     /// Provides a test for the <see cref="CryptoUtility.GetPasswordHash(byte[], byte[], int)" /> method.
     /// </summary>
     [Fact]
+    [Obsolete("Testing an obsolete method.")]
     public void GetPasswordHashTest()
     {
         var password = Encoding.UTF8.GetBytes("password");
@@ -68,6 +72,7 @@ public class CryptoUtilityTests
     /// Provides a test for the <see cref="CryptoUtility.GetPasswordSalt()" /> method.
     /// </summary>
     [Fact]
+    [Obsolete("Testing an obsolete method.")]
     public void GetPasswordSaltTest()
     {
         var bytes = CryptoUtility.GetPasswordSalt();
@@ -78,6 +83,7 @@ public class CryptoUtilityTests
     /// Provides a test for the <see cref="CryptoUtility.GetRandomBytes(int)" /> method.
     /// </summary>
     [Fact]
+    [Obsolete("Testing an obsolete method.")]
     public void GetRandomBytesTest()
     {
         var bytes = CryptoUtility.GetRandomBytes(32);
@@ -88,6 +94,7 @@ public class CryptoUtilityTests
     /// Provides a test for the <see cref="CryptoUtility.GetRandomGuid" /> method.
     /// </summary>
     [Fact]
+    [Obsolete("Testing an obsolete method.")]
     public void GetRandomGuidTest()
     {
         var result = CryptoUtility.GetRandomGuid();
@@ -100,6 +107,7 @@ public class CryptoUtilityTests
     /// Provides a test for the <see cref="CryptoUtility.GetRSAPrivateKey(int)" /> method.
     /// </summary>
     [Fact]
+    [Obsolete("Testing an obsolete method.")]
     public void GetRSAPrivateKeyTest()
     {
         var privateKey = CryptoUtility.GetRSAPrivateKey();
@@ -112,6 +120,7 @@ public class CryptoUtilityTests
     /// Provides a test for the <see cref="CryptoUtility.GetRSAPublicKey(byte[])" /> method.
     /// </summary>
     [Fact]
+    [Obsolete("Testing an obsolete method.")]
     public void GetRSAPublicKeyTest()
     {
         var privateKey = CryptoUtility.GetRSAPrivateKey();
@@ -125,6 +134,7 @@ public class CryptoUtilityTests
     /// Provides a test for the <see cref="CryptoUtility.RSAEncrypt(byte[], byte[])" /> and <see cref="CryptoUtility.RSAEncrypt(byte[], byte[])" /> methods.
     /// </summary>
     [Fact]
+    [Obsolete("Testing an obsolete method.")]
     public void RSAEncryptionTest()
     {
         var privateKey = CryptoUtility.GetRSAPrivateKey();
@@ -139,6 +149,7 @@ public class CryptoUtilityTests
     /// Provides a test for the <see cref="CryptoUtility.SlowEquals(byte[], byte[])" /> method.
     /// </summary>
     [Fact]
+    [Obsolete("Testing an obsolete method.")]
     public void SlowEqualsTest()
     {
         var a = new byte[] { 0x2A, 0x65, 0x6D, 0x9D, 0x36, 0x06, 0xC1, 0xE1, 0xE9, 0x47, 0x47, 0x7B, 0x7F, 0x11, 0x0D, 0x1A };

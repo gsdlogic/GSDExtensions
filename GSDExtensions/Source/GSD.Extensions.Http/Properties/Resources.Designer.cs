@@ -86,5 +86,23 @@ namespace GSD.Extensions.Http.Properties {
                 return ResourceManager.GetString("HttpClientException_DefaultMessage", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Timeout property can only be modified before sending the first request..
+        /// </summary>
+        internal static string HttpClientException_NotFirstRequest {
+            get {
+                return ResourceManager.GetString("HttpClientException_NotFirstRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The request timed out..
+        /// </summary>
+        internal static string TimeoutException_TheRequestTimedOut {
+            get {
+                return ResourceManager.GetString("TimeoutException_TheRequestTimedOut", resourceCulture);
+            }
+        }
     }
 }
