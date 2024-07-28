@@ -131,7 +131,7 @@ public static class HttpClientExtensions
     /// <param name="cancellationToken">The <see cref="CancellationToken" /> to monitor for cancellation request.</param>
     /// <returns>A <see cref="Task" /> representing any asynchronous operation whose result contains the deserialized response.</returns>
     /// <exception cref="HttpClientException">An error occurred during the request.</exception>
-    public static async Task<TResponse> PostContentAsync<TResponse>(this HttpClient client, string requestPath, object content, string accessToken, CancellationToken cancellationToken = default)
+    public static async Task<TResponse> PostAsync<TResponse>(this HttpClient client, string requestPath, object content, string accessToken, CancellationToken cancellationToken = default)
     {
         if (client == null)
         {
@@ -196,7 +196,7 @@ public static class HttpClientExtensions
     /// <param name="cancellationToken">The <see cref="CancellationToken" /> to monitor for cancellation request.</param>
     /// <returns>A <see cref="Task" /> representing any asynchronous operation whose result contains the deserialized response.</returns>
     /// <exception cref="HttpClientException">An error occurred during the request.</exception>
-    public static async Task<TResponse> PutContentAsync<TResponse>(this HttpClient client, string requestPath, object content, string accessToken, CancellationToken cancellationToken = default)
+    public static async Task<TResponse> PutAsync<TResponse>(this HttpClient client, string requestPath, object content, string accessToken, CancellationToken cancellationToken = default)
     {
         if (client == null)
         {
