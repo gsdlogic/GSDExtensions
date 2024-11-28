@@ -1,7 +1,8 @@
 {
-  "Version": "1.0",
+  "Version": "1.1",
   "Variables": {
     "Company": "GSD Logic",
+    "Product": "GSD Extensions",
     "Copyright": "Copyright © {Date:yyyy} {Company}. All rights reserved.",
     "AssemblyVersion": "{Major}.{Minor}.0.0",
     "CppFileVersion": "{Major},{Minor},{Patch},{CommitCount}",
@@ -45,7 +46,8 @@
     },
     {
       "FileSpecs": [
-        "*.csproj"
+        "*.csproj",
+        "Directory.Build.props"
       ],
       "Patterns": [
         {
@@ -73,16 +75,20 @@
           "Replace": "<FileVersion>{FileVersion}</FileVersion>"
         },
         {
-          "Search": "<InformationalVersion>(.*)</InformationalVersion>",
-          "Replace": "<InformationalVersion>{InformationalVersion}</InformationalVersion>"
-        },
-        {
           "Search": "<AssemblyVersion>(.*)</AssemblyVersion>",
           "Replace": "<AssemblyVersion>{AssemblyVersion}</AssemblyVersion>"
         },
         {
           "Search": "<AssemblyFileVersion>(.*)</AssemblyFileVersion>",
           "Replace": "<AssemblyFileVersion>{FileVersion}</AssemblyFileVersion>"
+        },
+        {
+          "Search": "<InformationalVersion>(.*)</InformationalVersion>",
+          "Replace": "<InformationalVersion>{InformationalVersion}</InformationalVersion>"
+        },
+        {
+          "Search": "<PackageVersion>(.*)</PackageVersion>",
+          "Replace": "<PackageVersion>{SemanticVersion}</PackageVersion>"
         }
       ]
     },
@@ -143,7 +149,9 @@
       ]
     },
     {
-      "FileSpecs": [ "*.ism" ],
+      "FileSpecs": [
+        "*.ism"
+      ],
       "Patterns": [
         {
           "Search": "<td>ProductVersion</td><td>(.*)</td>",
@@ -152,7 +160,9 @@
       ]
     },
     {
-      "FileSpecs": [ "*.nuspec" ],
+      "FileSpecs": [
+        "*.nuspec"
+      ],
       "Patterns": [
         {
           "Search": "<version>.*</version>",
@@ -177,7 +187,9 @@
       ]
     },
     {
-      "FileSpecs": [ "*.md" ],
+      "FileSpecs": [
+        "*.md"
+      ],
       "Patterns": [
         {
           "Search": "\\{\\{\\[VERSION\\]\\}\\}",

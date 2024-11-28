@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="ByteArrayTests.cs" company="GSD Logic">
 //   Copyright © 2024 GSD Logic. All rights reserved.
 // </copyright>
@@ -495,15 +495,15 @@ public static class ByteArrayTests
         // ReSharper disable once JoinDeclarationAndInitializer
         TestValue value;
 
-        value = (TestValue)ByteArray.GetObject(new byte[] { 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0xCC, 0xCC, 0xCC, 0xCC }, 0, typeof(TestValue));
+        value = ByteArray.GetObject<TestValue>([0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0xCC, 0xCC, 0xCC, 0xCC], 0);
         Assert.Equal(0x04030201, value.IntValue);
         Assert.Equal(0x0605, value.ShortValue);
 
-        value = (TestValue)ByteArray.GetObject(new byte[] { 0xCC, 0xCC, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0xCC, 0xCC }, 2, typeof(TestValue));
+        value = ByteArray.GetObject<TestValue>([0xCC, 0xCC, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0xCC, 0xCC], 2);
         Assert.Equal(0x04030201, value.IntValue);
         Assert.Equal(0x0605, value.ShortValue);
 
-        value = (TestValue)ByteArray.GetObject(new byte[] { 0xCC, 0xCC, 0xCC, 0xCC, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06 }, 4, typeof(TestValue));
+        value = ByteArray.GetObject<TestValue>([0xCC, 0xCC, 0xCC, 0xCC, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06], 4);
         Assert.Equal(0x04030201, value.IntValue);
         Assert.Equal(0x0605, value.ShortValue);
     }
@@ -514,7 +514,7 @@ public static class ByteArrayTests
     [Fact]
     public static void GetObjectT()
     {
-        var value = ByteArray.GetObject<TestValue>(new byte[] { 0x01, 0x02, 0x03, 0x04, 0x05, 0x06 }, 0);
+        var value = ByteArray.GetObject<TestValue>([0x01, 0x02, 0x03, 0x04, 0x05, 0x06], 0);
         Assert.Equal(0x04030201, value.IntValue);
         Assert.Equal(0x0605, value.ShortValue);
     }
@@ -526,7 +526,7 @@ public static class ByteArrayTests
     public static void GetString()
     {
         Assert.Throws<ArgumentNullException>("buffer", () => ByteArray.GetString(null, 0, 0, Encoding.ASCII));
-        Assert.Throws<ArgumentNullException>("encoding", () => ByteArray.GetString(Array.Empty<byte>(), 0, 1, null));
+        Assert.Throws<ArgumentNullException>("encoding", () => ByteArray.GetString([], 0, 1, null));
         Assert.Throws<ArgumentOutOfRangeException>("offset", () => ByteArray.GetString(new byte[16], -1, 16, Encoding.ASCII));
         Assert.Throws<ArgumentOutOfRangeException>(() => ByteArray.GetString(new byte[16], 1, 16, Encoding.ASCII));
 

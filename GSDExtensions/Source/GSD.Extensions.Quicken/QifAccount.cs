@@ -1,8 +1,6 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="QifAccount.cs" company="GSD Logic">
-//   Copyright © 2024 GSD Logic. All rights reserved.
+// Copyright © 2024 GSD Logic. All rights reserved.
 // </copyright>
-// --------------------------------------------------------------------------------------------------------------------
 
 namespace GSD.Extensions.Quicken;
 
@@ -54,7 +52,7 @@ public class QifAccount
     /// <summary>
     /// Gets the list of transactions.
     /// </summary>
-    public Collection<QifTransaction> Transactions { get; } = new ();
+    public Collection<QifTransaction> Transactions { get; } = new();
 
     /// <summary>
     /// Overrides <see cref="object.ToString" /> to return the name of the account.

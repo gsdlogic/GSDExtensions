@@ -5,10 +5,12 @@
 namespace GSD.Extensions.Http;
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net.Sockets;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,7 +25,7 @@ public static class HttpClientExtensions
     /// <summary>
     /// The JSON serializer.
     /// </summary>
-    private static readonly JsonSerializer JsonSerializer = new ();
+    private static readonly JsonSerializer JsonSerializer = new();
 
     /// <summary>
     /// Sends an HTTP DELETE request to the server as an asynchronous operation.
@@ -86,6 +88,65 @@ public static class HttpClientExtensions
         }
 
         return await client.SendAsync<TResponse>(request, cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Sends an HTTP GET request to the server as an asynchronous operation and deserializes the response.
+    /// </summary>
+    /// <typeparam name="TResponse">The type of object to deserialize the response content.</typeparam>
+    /// <param name="client">The HTTP client.</param>
+    /// <param name="requestPath">A string that represents the request path.</param>
+    /// <param name="accessToken">The access token to authorize the request, or <see langword="null" /> if the request does not require authorization.</param>
+    /// <param name="cancellationToken">The <see cref="CancellationToken" /> to monitor for cancellation requests.</param>
+    /// <returns>A <see cref="Task" /> representing any asynchronous operation whose result contains the deserialized response.</returns>
+    /// <exception cref="HttpClientException">An error occurred during the request.</exception>
+    public static async IAsyncEnumerable<TResponse> GetStreamAsync<TResponse>(this HttpClient client, string requestPath, string accessToken, [EnumeratorCancellation] CancellationToken cancellationToken = default)
+    {
+        if (client == null)
+        {
+            throw new ArgumentNullException(nameof(client));
+        }
+
+        if (requestPath == null)
+        {
+            throw new ArgumentNullException(nameof(requestPath));
+        }
+
+        using var request = new HttpRequestMessage(HttpMethod.Get, requestPath.TrimStart('/'));
+
+        if (accessToken != null)
+        {
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+        }
+
+        using var response = await client.SendAsync(request, cancellationToken).ConfigureAwait(false);
+
+        var stream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
+        await using var streamDisposable = stream.ConfigureAwait(false);
+
+        using var reader = new StreamReader(stream);
+        using var jsonReader = new JsonTextReader(reader);
+
+        while (await jsonReader.ReadAsync(cancellationToken).ConfigureAwait(false))
+        {
+            if (jsonReader.TokenType != JsonToken.StartObject)
+            {
+                continue;
+            }
+
+            TResponse item;
+
+            try
+            {
+                item = JsonSerializer.Deserialize<TResponse>(jsonReader);
+            }
+            catch (JsonException ex)
+            {
+                throw new HttpClientException(request.Method.Method, request.RequestUri, ex.Message, ex);
+            }
+
+            yield return item;
+        }
     }
 
     /// <summary>

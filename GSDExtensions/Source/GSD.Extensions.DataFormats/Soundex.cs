@@ -1,8 +1,6 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="Soundex.cs" company="GSD Logic">
-//   Copyright © 2024 GSD Logic. All rights reserved.
+// Copyright © 2024 GSD Logic. All rights reserved.
 // </copyright>
-// --------------------------------------------------------------------------------------------------------------------
 
 namespace GSD.Extensions.DataFormats;
 
@@ -20,7 +18,7 @@ public static class Soundex
     /// <summary>
     /// The key used to generate the Soundex value.
     /// </summary>
-    private static readonly Dictionary<char, char> Key = new ()
+    private static readonly Dictionary<char, char> Key = new()
     {
         { 'B', '1' },
         { 'F', '1' },

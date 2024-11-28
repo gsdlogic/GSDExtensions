@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="HttpClientExtensionsTests.cs" company="GSD Logic">
 //   Copyright © 2024 GSD Logic. All rights reserved.
 // </copyright>
@@ -36,10 +36,8 @@ public class HttpClientExtensionsTests
         }
 
         using var handler = new TestHandler(HandleRequest);
-        using var client = new HttpClient(handler)
-        {
-            BaseAddress = new Uri("http://example.com"),
-        };
+        using var client = new HttpClient(handler);
+        client.BaseAddress = new Uri("http://example.com");
 
         var response = await client.GetAsync<string>(RequestPath, AccessToken).ConfigureAwait(true);
 
@@ -59,10 +57,8 @@ public class HttpClientExtensionsTests
         }
 
         using var handler = new TestHandler(HandleRequest);
-        using var client = new HttpClient(handler)
-        {
-            BaseAddress = new Uri("http://example.com"),
-        };
+        using var client = new HttpClient(handler);
+        client.BaseAddress = new Uri("http://example.com");
 
         // Call third party extension before setting timeout property.
         await client.GetStringAsync(new Uri("/api/test", UriKind.Relative)).ConfigureAwait(true);

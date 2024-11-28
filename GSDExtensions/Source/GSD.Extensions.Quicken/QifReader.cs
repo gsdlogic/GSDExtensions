@@ -1,8 +1,6 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="QifReader.cs" company="GSD Logic">
-//   Copyright © 2024 GSD Logic. All rights reserved.
+// Copyright © 2024 GSD Logic. All rights reserved.
 // </copyright>
-// --------------------------------------------------------------------------------------------------------------------
 
 namespace GSD.Extensions.Quicken;
 
@@ -34,7 +32,7 @@ public class QifReader : IDisposable
     /// <summary>
     /// The stack for pushing items back to the buffer.
     /// </summary>
-    private readonly Stack<QifItem> stack = new ();
+    private readonly Stack<QifItem> stack = new();
 
     /// <summary>
     /// The current <see cref="QifAccount" /> object.

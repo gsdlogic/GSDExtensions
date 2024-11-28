@@ -1,8 +1,6 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="QifDocument.cs" company="GSD Logic">
-//   Copyright © 2024 GSD Logic. All rights reserved.
+// Copyright © 2024 GSD Logic. All rights reserved.
 // </copyright>
-// --------------------------------------------------------------------------------------------------------------------
 
 namespace GSD.Extensions.Quicken;
 
@@ -17,7 +15,7 @@ public class QifDocument
     /// <summary>
     /// Gets the collection of accounts.
     /// </summary>
-    public Collection<QifAccount> Accounts { get; } = new ();
+    public Collection<QifAccount> Accounts { get; } = new();
 
     /// <summary>
     /// Gets balance for all accounts.
@@ -28,10 +26,10 @@ public class QifDocument
     /// <summary>
     /// Gets the collection of categories.
     /// </summary>
-    public Collection<QifCategory> Categories { get; } = new ();
+    public Collection<QifCategory> Categories { get; } = new();
 
     /// <summary>
     /// Gets the collection of tags.
     /// </summary>
-    public Collection<QifTag> Tags { get; } = new ();
+    public Collection<QifTag> Tags { get; } = new();
 }

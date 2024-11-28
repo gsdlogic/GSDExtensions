@@ -1,4 +1,4 @@
-﻿// <copyright file="AESHelper.cs" company="GSD Logic">
+// <copyright file="AESHelper.cs" company="GSD Logic">
 // Copyright © 2024 GSD Logic. All rights reserved.
 // </copyright>
 
@@ -26,19 +26,9 @@ public static class AESHelper
             throw new ArgumentNullException(nameof(cipherText));
         }
 
-        if (key == null)
-        {
-            throw new ArgumentNullException(nameof(key));
-        }
-
-        if (iv == null)
-        {
-            throw new ArgumentNullException(nameof(iv));
-        }
-
         using var aes = Aes.Create();
-        aes.Key = key;
-        aes.IV = iv;
+        aes.Key = key ?? throw new ArgumentNullException(nameof(key));
+        aes.IV = iv ?? throw new ArgumentNullException(nameof(iv));
 
         using var decryptor = aes.CreateDecryptor();
         var decrypted = decryptor.TransformFinalBlock(cipherText, 0, cipherText.Length);
@@ -59,13 +49,8 @@ public static class AESHelper
             throw new ArgumentNullException(nameof(plainText));
         }
 
-        if (key == null)
-        {
-            throw new ArgumentNullException(nameof(key));
-        }
-
         using var aes = Aes.Create();
-        aes.Key = key;
+        aes.Key = key ?? throw new ArgumentNullException(nameof(key));
 
         using var encryptor = aes.CreateEncryptor();
         var cipherText = encryptor.TransformFinalBlock(plainText, 0, plainText.Length);

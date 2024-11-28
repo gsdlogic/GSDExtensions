@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="QifReaderTests.cs" company="GSD Logic">
 //   Copyright © 2024 GSD Logic. All rights reserved.
 // </copyright>
@@ -22,7 +22,7 @@ public class QifReaderTests
     public async Task CanReadQifFiles()
     {
         using var reader = new QifReader(@"SAMPLE.QIF");
-        var document = await reader.ReadDocumentAsync().ConfigureAwait(false);
+        var document = await reader.ReadDocumentAsync().ConfigureAwait(true);
 
         Assert.Equal(3, document.Accounts.Count);
 

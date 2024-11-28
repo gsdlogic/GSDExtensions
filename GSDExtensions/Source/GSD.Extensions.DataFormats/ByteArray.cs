@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="ByteArray.cs" company="GSD Logic">
 //   Copyright © 2024 GSD Logic. All rights reserved.
 // </copyright>
@@ -714,8 +714,8 @@ public static class ByteArray
         }
 
         var offsetCount = offset + count;
-        var lineOffset = (offset / 16) * 16;
-        var lineOffsetCount = ((offsetCount + 15) / 16) * 16;
+        var lineOffset = offset / 16 * 16;
+        var lineOffsetCount = (offsetCount + 15) / 16 * 16;
 
         var result = new StringBuilder();
         var hex = new StringBuilder(52);
@@ -737,7 +737,7 @@ public static class ByteArray
             {
                 hex.Append(' ');
                 hex.Append(buffer[i].ToString("X2", CultureInfo.InvariantCulture));
-                ascii.Append((buffer[i] < 32) || (buffer[i] > 126) ? '.' : (char)buffer[i]);
+                ascii.Append(buffer[i] is < 32 or > 126 ? '.' : (char)buffer[i]);
             }
 
             if (i % 16 == 15)

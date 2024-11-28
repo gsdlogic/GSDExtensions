@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="Base32.cs" company="GSD Logic">
 //   Copyright © 2024 GSD Logic. All rights reserved.
 // </copyright>
@@ -38,10 +38,10 @@ public static class Base32
 
         if (input.Length == 0)
         {
-            return Array.Empty<byte>();
+            return [];
         }
 
-        var output = new byte[(input.Length * 5) / 8];
+        var output = new byte[input.Length * 5 / 8];
         var bitIndex = 0;
         var inputIndex = 0;
         var outputBits = 0;

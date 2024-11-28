@@ -1,4 +1,4 @@
-﻿// <copyright file="CryptoUtility.cs" company="GSD Logic">
+// <copyright file="CryptoUtility.cs" company="GSD Logic">
 // Copyright © 2024 GSD Logic. All rights reserved.
 // </copyright>
 
@@ -45,7 +45,7 @@ public static class CryptoUtility
     /// <param name="value">The data to be encrypted.</param>
     /// <returns>The encrypted data prefixed with the initialization vector for the AES-256 algorithm.</returns>
     [Obsolete("Use AESHelper.Encrypt(byte[], byte[]) instead.")]
-    public static (byte[] iv, byte[] result) AES256Encrypt(byte[] key, byte[] value)
+    public static (byte[] IV, byte[] Result) AES256Encrypt(byte[] key, byte[] value)
     {
         if (value == null)
         {

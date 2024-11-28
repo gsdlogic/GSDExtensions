@@ -1,8 +1,6 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="QifTransaction.cs" company="GSD Logic">
-//   Copyright © 2024 GSD Logic. All rights reserved.
+// Copyright © 2024 GSD Logic. All rights reserved.
 // </copyright>
-// --------------------------------------------------------------------------------------------------------------------
 
 namespace GSD.Extensions.Quicken;
 
@@ -85,7 +83,7 @@ public class QifTransaction
     /// <summary>
     /// Gets the collection of split items.
     /// </summary>
-    public Collection<QifSplit> Splits { get; } = new ();
+    public Collection<QifSplit> Splits { get; } = new();
 
     /// <summary>
     /// Gets or sets an undocumented value.
