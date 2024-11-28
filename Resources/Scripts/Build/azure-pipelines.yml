@@ -68,12 +68,3 @@ steps:
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)/packages'
     ArtifactName: 'GSD.Extensions-$(VER_SemanticVersion)-packages'
-
-- task: NuGetCommand@2
-  displayName: 'NuGet push'
-  inputs:
-    command: 'push'
-    packagesToPush: '$(Build.ArtifactStagingDirectory)/packages/*.nupkg'
-    nuGetFeedType: 'external'
-    publishFeedCredentials: 'nuget.org'
-  condition: and(succeeded(), or(in(variables['Build.Reason'], 'IndividualCI', 'BatchedCI'), in(variables['NuGetPush'], 'All', 'Public')))
