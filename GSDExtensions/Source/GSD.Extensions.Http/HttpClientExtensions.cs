@@ -100,7 +100,7 @@ public static class HttpClientExtensions
     /// <param name="cancellationToken">The <see cref="CancellationToken" /> to monitor for cancellation requests.</param>
     /// <returns>A <see cref="Task" /> representing any asynchronous operation whose result contains the deserialized response.</returns>
     /// <exception cref="HttpClientException">An error occurred during the request.</exception>
-    public static async IAsyncEnumerable<TResponse> GetStreamAsync<TResponse>(this HttpClient client, string requestPath, string accessToken, [EnumeratorCancellation] CancellationToken cancellationToken = default)
+    public static async IAsyncEnumerable<TResponse> GetAsStreamAsync<TResponse>(this HttpClient client, string requestPath, string accessToken, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
         if (client == null)
         {
