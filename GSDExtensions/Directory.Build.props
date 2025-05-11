@@ -19,10 +19,10 @@
     <Product>GSD Extensions</Product>
     <Copyright>Copyright © 2024 GSD Logic. All Rights Reserved.</Copyright>
     <NeutralLanguage>en-US</NeutralLanguage>
-    <PackageVersion>0.0.0-dev.0</PackageVersion>
     <FileVersion>0.0.0.0</FileVersion>
     <AssemblyVersion>0.0.0.0</AssemblyVersion>
     <InformationalVersion>0.0.0.0 (development)</InformationalVersion>
+    <PackageVersion>0.0.0-dev.0</PackageVersion>
     <PackageProjectUrl>https://github.com/gsdlogic/GSDExtensions</PackageProjectUrl>
     <RepositoryUrl>https://github.com/gsdlogic/GSDExtensions</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
@@ -50,7 +50,7 @@
   </ItemGroup>
   
   <ItemGroup>
-    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.556" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.556" PrivateAssets="All" />
   </ItemGroup>
   
 </Project>

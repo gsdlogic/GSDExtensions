@@ -1,3 +1,6 @@
+pool:
+  vmImage: windows-latest
+
 trigger:
   batch: true
   branches:

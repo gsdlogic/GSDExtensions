@@ -1,15 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
-    <!-- Framework -->
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-    <!-- Package -->
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Title>GSD Extensions Blazor Class Library</Title>
     <Description>A set Blazor components and services.</Description>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <!-- Web -->
     <StaticWebAssetBasePath>/</StaticWebAssetBasePath>
   </PropertyGroup>
 
@@ -22,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.11" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="9.0.4" />
   </ItemGroup>
 
 </Project>

@@ -1,10 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <!-- Framework -->
     <TargetFramework>netstandard2.1</TargetFramework>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
-    <!-- Package -->
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Title>GSD Extensions Data Formats Class Library</Title>
     <Description>A set of classes providing techniques and algorithms used to represent data in various formats.</Description>
